@@ -5,7 +5,7 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 
 const mongoConnect = callback => {
-    mongodb.MongoClient.connect("mongodb+srv://mongoDB1:1234@cluster0.ywkmk.mongodb.net/quizzes?retryWrites=true&w=majority&useUnifiedTopology=true").then(client => {
+    mongodb.MongoClient.connect("").then(client => {
         _db = client.db('quizzes');
         callback(client);
     }).catch(err => {
