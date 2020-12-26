@@ -1,0 +1,77 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/form.css">
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main class="">
+    <h2><%= quiz.name %></h2>
+    <section class="section">
+        <div class="item">
+            <div class="quiz-item">
+                <div class="manager">
+                    <% if(favorites.findIndex(cur => cur === quiz._id.toString()) === -1) { %>
+                    <form action="/add-favorite-quiz" method="POST">
+                        <input type="hidden" name="id" value="<%= quiz._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="url" value="<%= url %>">
+                        <button type="submit" class="btn btn-outline-warning"><i class="fa fa-star" aria-hidden="true"></i> Favorite</button>
+                    </form>
+                    <% } %>
+                    <% if(favorites.findIndex(cur => cur === quiz._id.toString()) !== -1) { %>
+                    <form action="/remove-favorite-quiz" method="POST">
+                        <input type="hidden" name="id" value="<%= quiz._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="url" value="<%= url %>">
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-star-o" aria-hidden="true"></i> Remove Favorite</button>
+                    </form>
+                    <% } %>
+                </div>
+                <div class="details">
+                    <span class="bold">Category: </span>
+                    <% for(category of quiz.categories) { %>
+                    <span><%= category.name %></span>,
+                    <% } %>
+                    <br /><br />
+                    <span class="bold">Level: </span><span><%= quiz.level %></span>
+                    <p><%= quiz.description %></p>
+                </div>
+                <div class="photo">
+                    <img src="<%= quiz.photo ? quiz.photo : 'https://www.flaticon.com/svg/static/icons/svg/1328/1328246.svg' %>">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <form class="quiz-form" action="/quiz" method="POST">
+            <% for(question of quiz.questions) { %>
+                <div class="question-control">
+                    <span class="bold"><%= question.question %></span>
+                </div>
+                <div class="form-control">
+                    <% if(question.type === 'one') { %>
+                    <% for(answer of question.answers) { %>
+                    <input type="radio" id="<%= answer._id %>" name="<%= question._id %>_answer" value="<%= answer._id %>">
+                    <label for="<%= answer._id %>"> <%= answer.answer %></label>
+                    <br />
+                    <% } %>
+                    <% } %>
+                    <% if(question.type === 'multi') { %>
+                    <% for(answer of question.answers) { %>
+                    <input type="checkbox" id="<%= answer._id %>" name="<%= question._id %>_answers" value="<%= answer._id %>">
+                    <label for="<%= answer._id %>"> <%= answer.answer %></label>
+                    <br />
+                    <% } %>
+                    <% } %>
+                </div>
+            <% } %>
+            <br />
+            <input type="hidden" name="quizId" value="<%= quiz._id %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn btn-outline-success">Send</button>
+        </form>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

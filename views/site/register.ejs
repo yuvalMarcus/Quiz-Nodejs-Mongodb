@@ -1,0 +1,37 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/form.css">
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main class="site">
+    <h2>Register</h2>
+    <section class="section">
+        <form class="form song-form" action="/register" method="POST">
+            <% if(errors.length > 0) { %>
+            <div class="form-error">
+                <p>
+                    <%= errors[0].msg %>
+                </p>
+            </div>
+            <% } %>
+            <div class="form-control">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email">
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="text" name="password" id="password">
+            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn btn-outline-success" type="submit">Register</button>
+        </form>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

@@ -1,0 +1,60 @@
+.form {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.form .form-control {
+    width: 100%;
+    position: relative;
+    background-color: #f9f9f9;
+    margin-bottom: 17px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.form label {
+    color: #4a4a4a;
+}
+.form input, .form textarea, .form select {
+    display: block;
+    width: 100%;
+    background: transparent;
+    font-size: 15px;
+    color: #1b3815;
+    line-height: 1.2;
+    outline: none;
+    border: none;
+    overflow: hidden;
+    border-bottom: 1px solid #9E9E9E;
+    box-sizing: border-box;
+}
+.form input[type="checkbox"] {
+    display: inline;
+    width: auto;
+}
+.form button {
+    background-color: #8BC34A;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+
+.quiz-form .form-control {
+    padding: 5px;
+    background-color: #f1f1f1;
+    border: 1px solid #9E9E9E;
+}
+.quiz-form .question-control {
+    padding: 5px 0px;
+}
+
+
+.form-error p {
+    background-color: #f9c6c3;
+    color: #F44336;
+    border: 1px solid #F44336;
+    padding: 5px;
+}

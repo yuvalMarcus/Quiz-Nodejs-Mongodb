@@ -1,0 +1,41 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main>
+    <h2>Edit Category</h2>
+    <section class="section">
+        <form class="form song-form" action="/admin/edit-category" method="POST">
+            <div class="form-control">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="<%= category.name %>">
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description" id="description"><%= category.description %></textarea>
+            </div>
+            <div class="form-control">
+                <label for="categories">Categories</label>
+                <br />
+                <% for(cat of categories) { %>
+                <% if(cat._id.toString() !== category._id.toString()) { %>
+                <br />
+                <input type="checkbox" id="<%= cat._id %>" name="categories" value="<%= cat._id %>"
+                       <%= category.categories.findIndex(id => id.toString() === cat._id.toString()) !== -1 ? 'checked' : '' %>>
+                <label for="<%= cat._id %>"> <%= cat.name %></label>
+                <% } %>
+                <% } %>
+            </div>
+            <div class="form-control">
+                <label for="photo">Photo</label>
+                <input type="text" name="photo" id="photo" value="<%= category.photo %>">
+            </div>
+            <input type="hidden" name="categoryId" value="<%= category._id %>">
+            <button class="btn" type="submit">Edit Category</button>
+        </form>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

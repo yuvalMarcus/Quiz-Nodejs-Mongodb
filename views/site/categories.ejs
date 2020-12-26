@@ -1,0 +1,23 @@
+<%- include('includes/head.ejs') %>
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main class="site">
+    <h2>Categories</h2>
+    <section class="section transparent grid grid-row-2">
+        <% for(category of categories) { %>
+        <div class="item">
+            <a href="/category/<%= category._id %>">
+                <div class="category-item">
+                    <h3><%= category.name %></h3>
+                    <p><%= category.description %></p>
+                </div>
+            </a>
+        </div>
+        <% } %>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

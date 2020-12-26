@@ -1,0 +1,45 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/form.css">
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main class="">
+    <h2><%= quiz.name %></h2>
+    <section class="section">
+        <div class="item">
+            <div class="quiz-item">
+                <div class="manager">
+                    <span><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
+                    <span><i class="fa fa-star" aria-hidden="true"></i></span>
+                </div>
+                <div class="details">
+                    <span class="bold">Category: </span>
+                    <% for(category of quiz.categories) { %>
+                    <span><%= category.name %></span>,
+                    <% } %>
+                    <br /><br />
+                    <span class="bold">Level: </span><span><%= quiz.level %></span>
+                    <p><%= quiz.description %></p>
+                </div>
+                <div class="photo">
+                    <img src="<%= quiz.photo ? quiz.photo : 'https://www.flaticon.com/svg/static/icons/svg/1328/1328246.svg' %>">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <% for(question of quiz.questions) { %>
+        <div class="question-control">
+            <span class="bold"><%= question.question %></span>
+        </div>
+        <div class="result-control">
+            <%- result[question._id] ? '<span class="correct"> <i class="fa fa-check-square" aria-hidden="true"></i> Correct </span>' : '<span class="incorrect"> <i class="fa fa-window-close" aria-hidden="true"></i> Incorrect </span>' %>
+        </div>
+        <% } %>
+        <br />
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

@@ -1,0 +1,27 @@
+<header class="main-header">
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Site</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin' ? 'active' : '' %>" href="/admin">Dashboard</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/quizzes' ? 'active' : '' %>" href="/admin/quizzes">Quizzes</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/add-quiz' ? 'active' : '' %>" href="/admin/add-quiz">Add Quiz</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/categories' ? 'active' : '' %>" href="/admin/categories">Categories</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/add-category' ? 'active' : '' %>" href="/admin/add-category">Add Category</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/media' ? 'active' : '' %>" href="/admin/media">Media</a>
+            </li>
+        </ul>
+    </nav>
+</header>

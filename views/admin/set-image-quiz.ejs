@@ -1,0 +1,30 @@
+<%- include('includes/head.ejs') %>
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main>
+    <h2>Media</h2>
+    <section class="section transparent grid grid-row-2">
+        <form class="form-media" action="/admin/image-quiz" method="POST">
+            <div class="form-control">
+                <% for(item of items) { %>
+                <div class="item">
+                    <div class="media-item">
+                        <label for="image-quiz-<%= item._id %>">
+                            <img src="<%= item.path + item.name %>" />
+                        </label>
+                        <input type="radio" name="quizImage" value="<%= item._id %>" id="image-quiz-<%= item._id %>">
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <input type="hidden" name="quizId" value="<%= quizId %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn btn-outline-success" type="submit">Add Item</button>
+        </form>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

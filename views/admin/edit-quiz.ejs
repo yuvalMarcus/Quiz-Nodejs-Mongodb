@@ -1,0 +1,53 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main>
+    <h2>Edit Quiz</h2>
+    <section class="section">
+        <form class="form song-form" action="/admin/edit-quiz" method="POST">
+            <% if(errors.length > 0) { %>
+            <div class="form-error">
+                <p>
+                    <%= errors[0].msg %>
+                </p>
+            </div>
+            <% } %>
+            <div class="form-control">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="<%= quiz.name %>">
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description" id="description"><%= quiz.description %></textarea>
+            </div>
+            <div class="form-control">
+                <label for="categories">Categories</label>
+                <br />
+                <% for(category of categories) { %>
+                <% if(category._id.toString() !== quiz._id.toString()) { %>
+                <br />
+                <input type="checkbox" id="<%= category._id %>" name="categories" value="<%= category._id %>"
+                        <%= quiz.categories.findIndex(id => id.toString() === category._id.toString()) !== -1 ? 'checked' : '' %>>
+                <label for="<%= category._id %>"> <%= category.name %></label>
+                <% } %>
+                <% } %>
+            </div>
+            <div class="form-control">
+                <label for="level">Level</label>
+                <select name="level" id="level">
+                    <option value="beginners" <%= quiz.level === 'beginners' ? 'selected' : '' %>>beginners</option>
+                    <option value="advanced" <%= quiz.level === 'advanced' ? 'selected' : '' %>>advanced</option>
+                    <option value="master" <%= quiz.level === 'master' ? 'selected' : '' %>>master</option>
+                </select>
+            </div>
+            <input type="hidden" name="id" value="<%= quiz._id %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Edit Quiz</button>
+        </form>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

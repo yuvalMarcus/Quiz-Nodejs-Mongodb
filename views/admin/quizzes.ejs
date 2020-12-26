@@ -1,0 +1,40 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/music.css">
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main class="admin">
+    <h2>Quizzes</h2>
+    <section class="section list">
+        <% for(quiz of quizzes) { %>
+        <div class="item">
+            <div class="quiz-item">
+                <div class="manager">
+                    <a href="/admin/edit-quiz/<%= quiz._id %>" class="btn btn-outline-info"><span><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span></a>
+                    <form action="/admin/delete-quiz" method="POST">
+                        <input type="hidden" name="id" value="<%= quiz._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i> Remove</button>
+                    </form>
+                </div>
+                <div class="details">
+                    <h2><%= quiz.name %></h2>
+                    <span class="bold">Category: </span>
+                    <% for(category of quiz.categories) { %>
+                    <span><%= category.name %></span>,
+                    <% } %>
+                    <p><%= quiz.description %></p>
+                    <a href="/admin/quiz/<%= quiz._id %>" class="btn btn-outline-dark"><i class="fa fa-cogs" aria-hidden="true"></i> Manage</a>
+                </div>
+                <div class="photo">
+                    <img src="<%= quiz.photo ? quiz.photo : 'https://www.flaticon.com/svg/static/icons/svg/1328/1328246.svg' %>">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <% } %>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

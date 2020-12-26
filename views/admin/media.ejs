@@ -1,0 +1,21 @@
+<%- include('includes/head.ejs') %>
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main>
+    <h2>Media</h2>
+    <a href="/admin/media/add-item" class="btn btn-outline-success">Add Itam</a>
+    <section class="section transparent grid grid-row-2">
+        <% for(item of items) { %>
+        <div class="item">
+            <div class="media-item">
+                <img src="<%= item.path + item.name %>" />
+            </div>
+        </div>
+        <% } %>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

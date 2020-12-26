@@ -1,0 +1,20 @@
+.song-item {
+    display: flex;
+}
+.photo img {
+    max-width: 135px;
+}
+.details {
+    padding-left: 10px;
+}
+.control {
+    margin-top: 5px;
+}
+.control .play {
+    color: #F44336;
+    text-decoration: none;
+}
+.control .star {
+    color: #FFEB3B;
+    text-decoration: none;
+}

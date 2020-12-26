@@ -1,0 +1,38 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/form.css">
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main>
+    <h2>Edit Answer</h2>
+    <section class="section">
+        <form class="form song-form" action="/admin/quiz/<%= quizId %>/question/<%= questionId %>/edit-answer" method="POST">
+            <% if(errors.length > 0) { %>
+            <div class="form-error">
+                <p>
+                    <%= errors[0].msg %>
+                </p>
+            </div>
+            <% } %>
+            <div class="form-control">
+                <label for="answer">Answer Text</label>
+                <input type="text" name="answer" id="answer" value="<%= answer.answer %>">
+            </div>
+            <div class="form-control">
+                <label for="correct">Correct</label>
+                <select name="correct" id="correct">
+                    <option value="true" <%= answer.correct === 'true' ? 'selected' : '' %>>true</option>
+                    <option value="false" <%= answer.correct === 'false' ? 'selected' : '' %>>false</option>
+                </select>
+            </div>
+            <input type="hidden" name="quizId" value="<%= quizId %>">
+            <input type="hidden" name="questionId" value="<%= questionId %>">
+            <input type="hidden" name="answerId" value="<%= answer._id %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Edit Answer</button>
+        </form>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

@@ -1,0 +1,65 @@
+<%- include('includes/head.ejs') %>
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main class="site">
+    <h2>Categories</h2>
+    <section class="section transparent grid grid-row-2">
+        <% for(category of categories) { %>
+        <div class="item">
+            <a href="/category/<%= category._id %>">
+                <div class="category-item">
+                    <h3><%= category.name %></h3>
+                    <p><%= category.description %></p>
+                </div>
+            </a>
+        </div>
+        <% } %>
+        <% if(categories.length === 0) { %>
+        <p>Empty Categories</p>
+        <% } %>
+    </section>
+    <h2>Quizzes</h2>
+    <section class="section transparent grid grid-row-2">
+        <% for(quiz of quizzes) { %>
+        <div class="item">
+            <div class="quiz-item">
+                <div class="manager">
+                    <% if(favorites.findIndex(cur => cur === quiz._id.toString()) === -1) { %>
+                    <form action="/add-favorite-quiz" method="POST">
+                        <input type="hidden" name="id" value="<%= quiz._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="url" value="<%= url %>">
+                        <button type="submit" class="btn btn-outline-warning"><i class="fa fa-star" aria-hidden="true"></i> Favorite</button>
+                    </form>
+                    <% } %>
+                    <% if(favorites.findIndex(cur => cur === quiz._id.toString()) !== -1) { %>
+                    <form action="/remove-favorite-quiz" method="POST">
+                        <input type="hidden" name="id" value="<%= quiz._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="url" value="<%= url %>">
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-star-o" aria-hidden="true"></i> Remove Favorite</button>
+                    </form>
+                    <% } %>
+                </div>
+                <div class="details">
+                    <h2><%= quiz.name %></h2>
+                    <span>Category: </span><span>sss</span>
+                    <p><%= quiz.description %></p>
+                    <a href="/quiz/<%= quiz._id %>" class="btn btn-outline-success"><i class="fa fa-play" aria-hidden="true"></i> Start</a>
+                </div>
+                <div class="photo">
+                    <img src="<%= quiz.photo ? quiz.photo : 'https://www.flaticon.com/svg/static/icons/svg/1328/1328246.svg' %>">
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <% if(quizzes.length === 0) { %>
+        <p>Empty Quizzes</p>
+        <% } %>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

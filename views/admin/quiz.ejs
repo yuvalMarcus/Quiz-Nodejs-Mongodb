@@ -1,0 +1,81 @@
+<%- include('includes/head.ejs') %>
+
+</head>
+<body>
+<%- include('includes/menu.ejs') %>
+
+<main class="admin">
+    <h2><%= quiz.name %></h2>
+    <section class="section">
+        <div class="item">
+            <div class="quiz-item">
+                <div class="manager">
+                    <a href="/admin/image-quiz/<%= quiz._id %>" class="btn btn-outline-warning"><span><i class="fa fa-picture-o" aria-hidden="true"></i> Image</span></a>
+                    <a href="/admin/edit-quiz/<%= quiz._id %>" class="btn btn-outline-info"><span><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span></a>
+                    <form action="/admin/delete-quiz" method="POST">
+                        <input type="hidden" name="id" value="<%= quiz._id %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i> Remove</button>
+                    </form>
+                </div>
+                <div class="details">
+                    <span class="bold">Category: </span>
+                    <% for(category of quiz.categories) { %>
+                    <span><%= category.name %></span>,
+                    <% } %>
+                    <br /><br />
+                    <span class="bold">Level: </span><span><%= quiz.level %></span>
+                    <p><%= quiz.description %></p>
+                </div>
+                <div class="photo">
+                    <img src="<%= quiz.photo ? quiz.photo : 'https://www.flaticon.com/svg/static/icons/svg/1328/1328246.svg' %>">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section questions">
+        <div class="manager">
+            Manger Questions : <a href="/admin/quiz/<%= quiz._id %>/add-question" class="btn btn-outline-success"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+        </div>
+        <div class="body">
+            <% for(question of quiz.questions) { %>
+            <div class="question-item">
+                <div class="body">
+                    <h3>Question : <%= question.question %></h3>
+                    <div class="manager">
+                        <a href="/admin/quiz/<%= quiz._id %>/edit-question/<%= question._id %>" class="btn btn-outline-info"><span><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span></a>
+                        <form action="/admin/quiz/<%= quiz._id %>/delete-question" method="POST">
+                            <input type="hidden" name="quizId" value="<%= quiz._id %>">
+                            <input type="hidden" name="questionId" value="<%= question._id %>">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button type="submit" class="btn btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i> Remove</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="manager">
+                    Manger Answers : <a href="/admin/quiz/<%= quiz._id %>/question/<%= question._id %>/add-answer" class="btn btn-outline-success"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+                </div>
+                <div class="answers-item">
+                    <% for(answer of question.answers) { %>
+                    <div class="answer-item">
+                        <h4><%- answer.correct === 'true' ? '<span class="answer-true"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>' : '' ; %>
+                            <%- answer.correct === 'false' ? '<span class="answer-false"><i class="fa fa-window-close-o" aria-hidden="true"></i></span>' : '' ; %> Answer : <%= answer.answer %></h4>
+                        <div class="manager">
+                            <a href="/admin/quiz/<%= quiz._id %>/question/<%= question._id %>/edit-answer/<%= answer._id %>" class="btn btn-outline-info"><span><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span></a>
+                            <form action="/admin/quiz/<%= quiz._id %>/question/<%= question._id %>/delete-answer" method="POST">
+                                <input type="hidden" name="quizId" value="<%= quiz._id %>">
+                                <input type="hidden" name="answerId" value="<%= answer._id %>">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button type="submit" class="btn btn-outline-danger"><i class="fa fa-times" aria-hidden="true"></i> Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </section>
+</main>
+
+<%- include('includes/end.ejs') %>

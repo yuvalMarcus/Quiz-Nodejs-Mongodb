@@ -1,0 +1,33 @@
+<header class="main-header">
+    <div class="main-right">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item">
+                    <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/quizzes' ? 'active' : '' %>" href="/quizzes">Quizzes</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/categories' ? 'active' : '' %>" href="/categories">Categories</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/favorites' ? 'active' : '' %>" href="/favorites">Favorites</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="main-left">
+        <% if(!isAuthenticated) { %>
+        <a href="/register" class="btn btn-light">Register</a>
+        <a href="/login" class="btn btn-light">Login</a>
+        <% } %>
+        <% if(isAuthenticated) { %>
+        <form action="/logout" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn btn-light">Logout</button>
+        </form>
+        <a href="/admin" class="btn btn-dark">Admin</a>
+        <% } %>
+    </div>
+</header>
